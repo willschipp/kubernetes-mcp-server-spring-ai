@@ -16,12 +16,32 @@ repositories {
     name = 'Central Portal Snapshots'
     url = 'https://central.sonatype.com/repository/maven-snapshots/'
   }
+  
 }
 
+// dependencyManagement {
+//   imports {
+//     mavenBom "io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:2.16.0"
+//   }  
+// }
+
 dependencies {
+    // AI specific imports
+    implementation 'org.springframework.ai:spring-ai-client-chat:1.0.0'
     implementation 'org.springframework.ai:spring-ai-starter-mcp-client:1.0.0'
     implementation 'org.springframework.ai:spring-ai-starter-mcp-client-webflux:1.0.0'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.ai:spring-ai-autoconfigure-model-chat-memory:1.0.0'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // inference service implementation
+    implementation 'org.springframework.ai:spring-ai-starter-model-vertex-ai-gemini:1.0.0'
+
+    // generic
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // telemetry
+    // implementation 'io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter'
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' 
 }

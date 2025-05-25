@@ -22,7 +22,7 @@ public class Events {
     @Autowired
     General general;
     
-    @Tool(description="list all the pods in error in a cluster")
+    @Tool(name="getAllPodsInErrorState",description="list all the pods in error in a cluster")
     public List<V1Pod> getAllPodsInErrorState(@ToolParam(description="kubeconfig")String kubeconfigString) throws Exception {
         List<String> namespaces = general.listAllNamespaces(kubeconfigString);
         List<V1Pod> pods = new ArrayList<>();
@@ -34,7 +34,7 @@ public class Events {
     }
 
 
-    @Tool(description="list all the pods in error in a namespace")
+    @Tool(name="getNamespacePodsInErrorState",description="list all the pods in error in a namespace")
     public List<V1Pod> getNamespacePodsInErrorState(@ToolParam(description="namespace to search")String namespace,@ToolParam(description="kubeconfig")String kubeconfigString) throws Exception {
 
         //convert the string kubeconfig to a kubeconfig object

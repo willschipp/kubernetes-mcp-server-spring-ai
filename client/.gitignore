@@ -3,3 +3,12 @@
 
 # Ignore Gradle build output directory
 build
+
+# Ignore protected settings
+model.yml
+
+# ignore log artifacts
+*.log
+
+# ignore key file
+*_key.json

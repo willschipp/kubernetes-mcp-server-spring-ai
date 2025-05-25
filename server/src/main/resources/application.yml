@@ -4,6 +4,8 @@ management:
       exposure:
         include: "*"
 
+server:
+  port: 8060
 
 spring:
   ai:

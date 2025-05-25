@@ -4,6 +4,17 @@ management:
       exposure:
         include: "*"
 
+logging:
+  file:
+    name: spring-ai-client.log
+  level:
+    root: INFO
+    org:
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG
 
 spring:
   ai:
@@ -17,17 +28,10 @@ spring:
         sse:
           connections:
             server1:
-              url: http://localhost:8080
+              url: http://localhost:8060
         toolcallback:
           enabled: true
-        # stdio:
-        #   root-change-notification: false
-        #   connections:
-        #     server1:
-        #       command: /path/to/server
-        #       args:
-        #         - --port=8080
-        #         - --mode=production
-        #       env:
-        #         API_KEY: your-api-key
-        #         DEBUG: "true"
+  config:
+    import:
+      - model.yml
+
