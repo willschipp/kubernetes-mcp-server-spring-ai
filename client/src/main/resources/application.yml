@@ -1,0 +1,33 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+spring:
+  ai:
+    mcp:
+      client:
+        enabled: true
+        name: kubernetes-mcp-server-spring-ai
+        version: 0.0.1
+        request-timeout: 30s
+        type: ASYNC
+        sse:
+          connections:
+            server1:
+              url: http://localhost:8080
+        toolcallback:
+          enabled: true
+        # stdio:
+        #   root-change-notification: false
+        #   connections:
+        #     server1:
+        #       command: /path/to/server
+        #       args:
+        #         - --port=8080
+        #         - --mode=production
+        #       env:
+        #         API_KEY: your-api-key
+        #         DEBUG: "true"

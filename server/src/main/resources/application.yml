@@ -11,7 +11,7 @@ spring:
       server:
         name: kubernetes-mcp-server-spring-ai
         version: 0.0.1
-        type: SYNC  
+        type: ASYNC  
         enabled: true
         instructions: "This reactive server provides kubernetes information tools and resources"
         sse-message-endpoint: /mcp/messages
