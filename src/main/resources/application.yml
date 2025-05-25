@@ -1,0 +1,22 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+spring:
+  ai:
+    mcp:
+      server:
+        name: kubernetes-mcp-server-spring-ai
+        version: 0.0.1
+        type: SYNC  
+        enabled: true
+        instructions: "This reactive server provides kubernetes information tools and resources"
+        sse-message-endpoint: /mcp/messages
+        capabilities:
+          tool: true
+          resource: true
+          prompt: true
+          completion: true
