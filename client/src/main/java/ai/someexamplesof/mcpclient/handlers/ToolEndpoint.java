@@ -31,8 +31,8 @@ public class ToolEndpoint {
                 map.put("name",tool.getToolDefinition().name());
                 map.put("description",tool.getToolDefinition().description());
                 results.add(map);
-            }
-            return results;
+            } //end loop
+            return results; //return
         }).subscribeOn(Schedulers.boundedElastic());
     }
 

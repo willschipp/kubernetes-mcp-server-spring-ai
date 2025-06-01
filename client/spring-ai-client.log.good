@@ -1,0 +1,88 @@
+2025-06-01T18:49:10.190Z  INFO 67945 --- [main] a.someexamplesof.mcpclient.Application   : Starting Application v0.0.1-SNAPSHOT using Java 21.0.7 with PID 67945 (/workspaces/kubernetes-mcp-server-spring-ai/client/build/libs/kubernetes-mcp-server-spring-ai-client-0.0.1-SNAPSHOT.jar started by vscode in /workspaces/kubernetes-mcp-server-spring-ai/client)
+2025-06-01T18:49:10.196Z  INFO 67945 --- [main] a.someexamplesof.mcpclient.Application   : No active profile set, falling back to 1 default profile: "default"
+2025-06-01T18:49:14.777Z  INFO 67945 --- [reactor-http-epoll-2] i.m.client.McpAsyncClient                : Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=CompletionCapabilities[], experimental=null, logging=LoggingCapabilities[], prompts=PromptCapabilities[listChanged=true], resources=ResourceCapabilities[subscribe=false, listChanged=true], tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=k8s-mcp-server-spring-ai, version=0.0.1] and Instructions This reactive server provides kubernetes information tools and resources
+2025-06-01T18:49:14.990Z  INFO 67945 --- [main] a.s.m.c.VertexAIConfiguration            : building from the vertex builder
+2025-06-01T18:49:15.003Z  INFO 67945 --- [main] a.s.m.c.VertexAIConfiguration            : DefaultToolMetadata[returnDirect=false]
+2025-06-01T18:49:15.005Z  INFO 67945 --- [main] a.s.m.c.VertexAIConfiguration            : DefaultToolDefinition[name=kubernetes_mcp_server_spring_ai_server1_listAllNamespaces, description=list all the namespaces in a cluster, inputSchema={"type":"object","properties":{"kubeconfigString":{"type":"string","description":"kubeconfig"}},"required":["kubeconfigString"],"additionalProperties":false}]
+2025-06-01T18:49:15.005Z  INFO 67945 --- [main] a.s.m.c.VertexAIConfiguration            : DefaultToolMetadata[returnDirect=false]
+2025-06-01T18:49:15.005Z  INFO 67945 --- [main] a.s.m.c.VertexAIConfiguration            : DefaultToolDefinition[name=kubernetes_mcp_server_spring_ai_server1_getAllErrorPods, description=list all the pods in error in a cluster, inputSchema={"type":"object","properties":{"kubeconfigString":{"type":"string","description":"kubeconfig"}},"required":["kubeconfigString"],"additionalProperties":false}]
+2025-06-01T18:49:15.005Z  INFO 67945 --- [main] a.s.m.c.VertexAIConfiguration            : DefaultToolMetadata[returnDirect=false]
+2025-06-01T18:49:15.006Z  INFO 67945 --- [main] a.s.m.c.VertexAIConfiguration            : DefaultToolDefinition[name=kubernetes_mcp_server_spring_ai_server1_getAllErrorPodsByNS, description=list all the pods in error in a namespace, inputSchema={"type":"object","properties":{"namespace":{"type":"string","description":"namespace to search"},"kubeconfigString":{"type":"string","description":"kubeconfig"}},"required":["namespace","kubeconfigString"],"additionalProperties":false}]
+2025-06-01T18:49:15.397Z  INFO 67945 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoints beneath base path '/actuator'
+2025-06-01T18:49:15.788Z  INFO 67945 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
+2025-06-01T18:49:15.814Z  INFO 67945 --- [main] a.someexamplesof.mcpclient.Application   : Started Application in 6.73 seconds (process running for 7.842)
+2025-06-01T18:49:26.627Z DEBUG 67945 --- [reactor-http-epoll-4] o.s.a.c.c.advisor.SimpleLoggerAdvisor    : request: ChatClientRequest[prompt=Prompt{messages=[UserMessage{content='what is the current time', properties={messageType=USER}, messageType=USER}], modelOptions=VertexAiGeminiChatOptions{stopSequences=null, temperature=null, topP=null, topK=null, frequencyPenalty=null, presencePenalty=null, candidateCount=null, maxOutputTokens=null, model='gemini-2.0-flash-lite', responseMimeType='null', toolCallbacks=[MethodToolCallback{toolDefinition=DefaultToolDefinition[name=getCurrentDateTime, description=Get the current date and time in the user's timezone, inputSchema={
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "type" : "object",
+  "properties" : { },
+  "required" : [ ],
+  "additionalProperties" : false
+}], toolMetadata=DefaultToolMetadata[returnDirect=false]}, MethodToolCallback{toolDefinition=DefaultToolDefinition[name=setAlarm, description=Set a user alarm for the given time, provided in ISO-8601 format, inputSchema={
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "type" : "object",
+  "properties" : {
+    "time" : {
+      "type" : "string"
+    }
+  },
+  "required" : [ "time" ],
+  "additionalProperties" : false
+}], toolMetadata=DefaultToolMetadata[returnDirect=false]}], toolNames=[], googleSearchRetrieval=false, safetySettings=[]}}, context={}]
+2025-06-01T18:49:29.466Z  INFO 67945 --- [reactor-http-epoll-4] a.s.mcpclient.tools.DateTimeTools        : tool getCurrentDateTime called
+2025-06-01T18:49:29.954Z DEBUG 67945 --- [reactor-http-epoll-4] o.s.a.c.c.advisor.SimpleLoggerAdvisor    : response: {
+  "metadata" : {
+    "id" : "",
+    "model" : "",
+    "rateLimit" : {
+      "requestsLimit" : 0,
+      "requestsRemaining" : 0,
+      "requestsReset" : 0.0,
+      "tokensLimit" : 0,
+      "tokensRemaining" : 0,
+      "tokensReset" : 0.0
+    },
+    "usage" : {
+      "promptTokens" : 129,
+      "completionTokens" : 17,
+      "totalTokens" : 146
+    },
+    "promptMetadata" : [ ],
+    "empty" : true
+  },
+  "results" : [ {
+    "metadata" : {
+      "finishReason" : "STOP",
+      "contentFilters" : [ ],
+      "empty" : true
+    },
+    "output" : {
+      "messageType" : "ASSISTANT",
+      "metadata" : {
+        "finishReason" : "STOP",
+        "messageType" : "ASSISTANT",
+        "candidateIndex" : 0
+      },
+      "toolCalls" : [ ],
+      "media" : [ ],
+      "text" : "The current time is 18:49:29.\n"
+    }
+  } ],
+  "result" : {
+    "metadata" : {
+      "finishReason" : "STOP",
+      "contentFilters" : [ ],
+      "empty" : true
+    },
+    "output" : {
+      "messageType" : "ASSISTANT",
+      "metadata" : {
+        "finishReason" : "STOP",
+        "messageType" : "ASSISTANT",
+        "candidateIndex" : 0
+      },
+      "toolCalls" : [ ],
+      "media" : [ ],
+      "text" : "The current time is 18:49:29.\n"
+    }
+  }
+}

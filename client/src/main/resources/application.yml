@@ -3,6 +3,7 @@ management:
     web:
       exposure:
         include: "*"
+        exclude: env, beans
 
 logging:
   file:
@@ -10,11 +11,11 @@ logging:
   level:
     root: INFO
     org:
-      springframework:
-        ai:
-          chat:
-            client:
-              advisor: DEBUG
+      springframework: DEBUG
+        # ai:
+        #   chat:
+        #     client:
+        #       advisor: DEBUG              
 
 spring:
   ai:

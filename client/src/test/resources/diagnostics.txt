@@ -1,0 +1,29 @@
+#error
+
+tools[0].function_declarations[1].name
+
+#sent
+
+request: ChatClientRequest[prompt=Prompt{messages=[UserMessage{content='why is the sky blue', properties={messageType=USER}, messageType=USER}], modelOptions=VertexAiGeminiChatOptions{stopSequences=null, temperature=0.7, topP=null, topK=null, frequencyPenalty=null, presencePenalty=null, candidateCount=1, maxOutputTokens=null, model='gemini-1.5-flash', responseMimeType='null', toolCallbacks=[org.springframework.ai.mcp.AsyncMcpToolCallback@11fd81a1, org.springframework.ai.mcp.AsyncMcpToolCallback@52757f83, org.springframework.ai.mcp.AsyncMcpToolCallback@70395757], toolNames=[], googleSearchRetrieval=false, safetySettings=[]}}, context={}]
+
+# formatted
+request: ChatClientRequest[
+    prompt=Prompt{messages=
+        [UserMessage{content='why is the sky blue', 
+            properties={messageType=USER}, messageType=USER}], 
+            modelOptions=VertexAiGeminiChatOptions{
+                stopSequences=null, 
+                temperature=0.7, 
+                topP=null, 
+                topK=null, 
+                frequencyPenalty=null, 
+                presencePenalty=null, 
+                candidateCount=1, 
+                maxOutputTokens=null, 
+                model='gemini-1.5-flash', 
+                responseMimeType='null', 
+                toolCallbacks=[org.springframework.ai.mcp.AsyncMcpToolCallback@11fd81a1, org.springframework.ai.mcp.AsyncMcpToolCallback@52757f83, org.springframework.ai.mcp.AsyncMcpToolCallback@70395757], 
+                toolNames=[], 
+                googleSearchRetrieval=false, 
+                safetySettings=[]}}, 
+                context={}]

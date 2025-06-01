@@ -3,6 +3,7 @@ management:
     web:
       exposure:
         include: "*"
+        exclude: env, beans
 
 server:
   port: 8060
@@ -11,7 +12,7 @@ spring:
   ai:
     mcp:
       server:
-        name: kubernetes-mcp-server-spring-ai
+        name: k8s-mcp-server-spring-ai
         version: 0.0.1
         type: ASYNC  
         enabled: true

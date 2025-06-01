@@ -24,7 +24,7 @@ dependencies {
     implementation 'io.kubernetes:client-java:24.0.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
+    implementation 'io.micrometer:micrometer-registry-prometheus' //prometheus exposure
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "kubernetes_mcp_server_spring_ai_server1_listAllNamespaces",
+    "description": "list all the namespaces in a cluster"
+  },
+  {
+    "name": "kubernetes_mcp_server_spring_ai_server1_getAllErrorPods",
+    "description": "list all the pods in error in a cluster"
+  },
+  {
+    "name": "kubernetes_mcp_server_spring_ai_server1_getAllErrorPodsByNS",
+    "description": "list all the pods in error in a namespace"
+  }
+]
