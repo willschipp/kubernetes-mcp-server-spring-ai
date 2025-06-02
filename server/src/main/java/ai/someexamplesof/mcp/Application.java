@@ -18,11 +18,21 @@ public class Application {
     }
 
 
+	/**
+	 * expose the event tools
+	 * @param events
+	 * @return
+	 */
     @Bean
 	public ToolCallbackProvider eventTools(Events events) {
 		return MethodToolCallbackProvider.builder().toolObjects(events).build();
 	}
 
+	/**
+	 * expose the general tools
+	 * @param general
+	 * @return
+	 */
     @Bean
 	public ToolCallbackProvider generalTools(General general) {
 		return MethodToolCallbackProvider.builder().toolObjects(general).build();

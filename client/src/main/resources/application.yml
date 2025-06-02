@@ -25,7 +25,7 @@ spring:
         name: kubernetes-mcp-server-spring-ai
         version: 0.0.1
         request-timeout: 30s
-        type: SYNC #ASYNC
+        type: SYNC #using SYNC in this example, could be ASYNC
         sse:
           connections:
             server1:

@@ -19,18 +19,10 @@ repositories {
   
 }
 
-// dependencyManagement {
-//   imports {
-//     mavenBom "io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:2.16.0"
-//   }  
-// }
-
 dependencies {
     // AI specific imports
     implementation 'org.springframework.ai:spring-ai-client-chat:1.0.0'
     implementation 'org.springframework.ai:spring-ai-starter-mcp-client:1.0.0'
-    // implementation 'org.springframework.ai:spring-ai-starter-mcp-client-webflux:1.0.0'
-    // implementation 'org.springframework.ai:spring-ai-starter-mcp-client-webmvc:1.0.0'
     implementation 'org.springframework.ai:spring-ai-autoconfigure-model-chat-memory:1.0.0'
 
     // inference service implementation
@@ -39,9 +31,7 @@ dependencies {
     // generic
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    // implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'io.micrometer:micrometer-registry-prometheus' //prometheus exposure
-
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test' 
 }

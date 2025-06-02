@@ -22,6 +22,9 @@ import org.springframework.stereotype.Service;
 
 import ai.someexamplesof.mcp.util.KubernetesUtils;
 
+/**
+ * Error event specific tools
+ */
 @Service
 public class Events {
 
@@ -30,15 +33,18 @@ public class Events {
     @Autowired
     General general;
     
-    // public List<V1Pod> getAllPodsInErrorState(@ToolParam(description="kubeconfig")String kubeconfigString) throws Exception {
-
+    /**
+     * main tool to retrieve ANY error pods in the cluster visible by the kubeconfig
+     * @param kubeconfigString
+     * @return
+     * @throws Exception
+     */
     @Tool(name="getAllErrorPods",description="list all the pods in error in a cluster")
     public Flux<V1Pod> getAllPodsInErrorState(@ToolParam(description="kubeconfig")String kubeconfigString) throws Exception {
 
         logger.info("Called getAllErrorPods");
 
         return general.listAllNamespaces(kubeconfigString)
-            .log("after namespaces")
             .flatMapMany(namespaces -> Flux.fromIterable(namespaces)
                 .flatMapSequential(namespace -> getNamespacePodsInErrorState(namespace, kubeconfigString)
                     .onErrorResume(e -> {
@@ -46,13 +52,16 @@ public class Events {
                         return Flux.empty();
                     })
                 )
-            ).log("after getting namespace pods")
-            .subscribeOn(Schedulers.parallel());
+            ).subscribeOn(Schedulers.parallel());
 
     }
 
-    // public List<V1Pod> getNamespacePodsInErrorState(@ToolParam(description="namespace to search")String namespace,@ToolParam(description="kubeconfig")String kubeconfigString) throws Exception {
-
+    /**
+     * get error pods in a specific namespace
+     * @param namespace
+     * @param kubeconfigString
+     * @return
+     */
     @Tool(name="getAllErrorPodsByNS",description="list all the pods in error in a namespace")
     public Flux<V1Pod> getNamespacePodsInErrorState(@ToolParam(description="namespace to search")String namespace, @ToolParam(description="kubeconfig")String kubeconfigString) {
 
@@ -64,16 +73,9 @@ public class Events {
                 ApiClient client = Config.fromConfig(kubeConfig);
                 return new CoreV1Api(client);
             }))
-            .flatMapMany(api -> {
-                // try {
-                    return Mono.fromCallable(() -> api.listNamespacedPod(namespace).execute())
-                            .subscribeOn(Schedulers.boundedElastic()); // Offload Kubernetes API call
-                // } catch (ApiException e) {
-                    //More specific exception handling
-                    // return Mono.error(new RuntimeException("Kubernetes API call failed: " + e.getMessage(), e));
-                // }
-            })
-            .flatMap(podList -> Flux.fromIterable(podList.getItems()).filter(pod -> isPodInErrorState(pod)))
+            .flatMapMany(api -> Mono.fromCallable(() -> api.listNamespacedPod(namespace).execute())
+                .subscribeOn(Schedulers.boundedElastic()))
+            .flatMap(podList -> Flux.fromIterable(podList.getItems()).filter(pod -> isPodInErrorState(pod))) //This calls the separate filter method to figure out what's in error
             .onErrorResume(error -> {
                 logger.error("Error fetching pods: ", error);
                 return Flux.empty(); // Return an empty Flux on error to prevent propagation
@@ -82,22 +84,27 @@ public class Events {
     }
 
 
+    /**
+     * The heavy lifting; determining if a pod is in error
+     * @param pod
+     * @return
+     */
     private boolean isPodInErrorState(V1Pod pod) {
-        String phase = pod.getStatus().getPhase();
-        if ("Failed".equalsIgnoreCase(phase)) return true;
+        String phase = pod.getStatus().getPhase(); //check the phase
+        if ("Failed".equalsIgnoreCase(phase)) return true; //it's bad --> exit
 
-        if (pod.getStatus().getContainerStatuses() != null) {
-            for (V1ContainerStatus status : pod.getStatus().getContainerStatuses()) {
-                V1ContainerState state = status.getState();
-                if (state != null && state.getWaiting() != null) {
+        if (pod.getStatus().getContainerStatuses() != null) { //got container status
+            for (V1ContainerStatus status : pod.getStatus().getContainerStatuses()) { //loop through them
+                V1ContainerState state = status.getState(); //retrieve the state
+                if (state != null && state.getWaiting() != null) { //check if it's WAITING
                     String reason = state.getWaiting().getReason();
-                    if (reason.contains("Crash") || reason.contains("Error")) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+                    if (reason.contains("Crash") || reason.contains("Error")) { //it's WAITING because something's wrong
+                        return true; //it's bad --> exit
+                    } //end if
+                } //end if
+            } //end for
+        }//end if
+        return false; //default --> not bad
     }
 
 }
