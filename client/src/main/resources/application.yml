@@ -11,11 +11,11 @@ logging:
   level:
     root: INFO
     org:
-      springframework: DEBUG
-        # ai:
-        #   chat:
-        #     client:
-        #       advisor: DEBUG              
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG              
 
 spring:
   ai:

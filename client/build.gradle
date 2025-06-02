@@ -28,7 +28,7 @@ repositories {
 dependencies {
     // AI specific imports
     implementation 'org.springframework.ai:spring-ai-client-chat:1.0.0'
-    implementation 'org.springframework.ai:spring-ai-starter-mcp-client:1.0.0'
+    // implementation 'org.springframework.ai:spring-ai-starter-mcp-client:1.0.0'
     implementation 'org.springframework.ai:spring-ai-starter-mcp-client-webflux:1.0.0'
     implementation 'org.springframework.ai:spring-ai-autoconfigure-model-chat-memory:1.0.0'
 
