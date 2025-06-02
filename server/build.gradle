@@ -19,10 +19,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.ai:spring-ai-starter-mcp-server:1.0.0'
-    implementation 'org.springframework.ai:spring-ai-starter-mcp-server-webflux:1.0.0'
+    // implementation 'org.springframework.ai:spring-ai-starter-mcp-server:1.0.0'
+    // implementation 'org.springframework.ai:spring-ai-starter-mcp-server-webflux:1.0.0'
+    implementation 'org.springframework.ai:spring-ai-starter-mcp-server-webmvc:1.0.0'
     implementation 'io.kubernetes:client-java:24.0.0'
 
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus' //prometheus exposure
 
