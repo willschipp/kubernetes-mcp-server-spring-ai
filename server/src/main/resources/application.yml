@@ -1,0 +1,25 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: env, beans
+
+server:
+  port: 8060
+
+spring:
+  ai:
+    mcp:
+      server:
+        name: k8s-mcp-server-spring-ai
+        version: 0.0.1
+        type: SYNC # it's a sync version but could be ASYNC too
+        enabled: true
+        instructions: "This server provides kubernetes information tools and resources"
+        sse-message-endpoint: /mcp/messages
+        capabilities:
+          tool: true
+          resource: true #haven't gotten any... yet
+          prompt: true #don't have any examples... yet
+          completion: true

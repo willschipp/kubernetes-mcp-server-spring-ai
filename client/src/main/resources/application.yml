@@ -1,0 +1,38 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: env, beans
+
+logging:
+  file:
+    name: spring-ai-client.log
+  level:
+    root: INFO
+    org:
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG              
+
+spring:
+  ai:
+    mcp:
+      client:
+        enabled: true
+        name: kubernetes-mcp-server-spring-ai
+        version: 0.0.1
+        request-timeout: 30s
+        type: SYNC #using SYNC in this example, could be ASYNC
+        sse:
+          connections:
+            server1:
+              url: http://localhost:8060
+        toolcallback:
+          enabled: true
+  config:
+    import:
+      - model.yml
+

@@ -1,0 +1,37 @@
+plugins {
+    id 'org.springframework.boot' version '3.5.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+}
+
+group = 'ai.someexamplesof'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '18'
+
+repositories {
+  mavenCentral()
+  maven { url 'https://repo.spring.io/milestone' }
+  maven { url 'https://repo.spring.io/snapshot' }
+  maven {
+    name = 'Central Portal Snapshots'
+    url = 'https://central.sonatype.com/repository/maven-snapshots/'
+  }
+  
+}
+
+dependencies {
+    // AI specific imports
+    implementation 'org.springframework.ai:spring-ai-client-chat:1.0.0'
+    implementation 'org.springframework.ai:spring-ai-starter-mcp-client:1.0.0'
+    implementation 'org.springframework.ai:spring-ai-autoconfigure-model-chat-memory:1.0.0'
+
+    // inference service implementation
+    implementation 'org.springframework.ai:spring-ai-starter-model-vertex-ai-gemini:1.0.0'
+
+    // generic
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.micrometer:micrometer-registry-prometheus' //prometheus exposure
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' 
+}
