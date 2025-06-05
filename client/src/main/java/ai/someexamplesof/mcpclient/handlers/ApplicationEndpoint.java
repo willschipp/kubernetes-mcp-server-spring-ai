@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import ai.someexamplesof.mcpclient.service.ConfigurationRegister;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @RestController
 @RequestMapping("/api")
@@ -74,7 +77,7 @@ public class ApplicationEndpoint {
      * @return
      * @throws Exception
      */
-    @GetMapping("/status/{kubeconfig_name}")
+    // @GetMapping("/status/{kubeconfig_name}")
     public String check(@PathVariable("kubeconfig_name") String filename) throws Exception {
         // String prompt = "You are an expert Kubernetes Administrator.  Are there any pods in error in the cluster? kubeconfig=";
         String prompt = basePrompt;
@@ -86,12 +89,24 @@ public class ApplicationEndpoint {
             .content();
     }
 
+    @GetMapping("/status/{kubeconfig_name}")
+    public Mono<String> checkForErrors(@PathVariable("kubeconfig_name") String configName) throws Exception {
+        return Mono.fromCallable(() -> {
+            String prompt = basePrompt;
+            //get the config
+            String kubeconfig = configurationRegister.getContent(configName);
+            prompt += kubeconfig;
+            return chatClient.prompt(prompt)
+                .call() //tools have been automatically added from the MCP server
+                .content();
+        }).subscribeOn(Schedulers.boundedElastic());
+    }
 
     /**
      * helper function to return what tools it can see
      * @return
      */
-    @GetMapping("/tools")
+    // @GetMapping("/tools")
     public List<Map<String, String>> getNames() {
         List<Map<String, String>> results = new ArrayList<>();
         for (ToolCallback tool : toolCallbackProvider.getToolCallbacks()) {
@@ -102,4 +117,14 @@ public class ApplicationEndpoint {
         }
         return results;
     }  
+
+    @GetMapping("/tools")
+    public Flux<Map<String,String>> getTools() {
+        return Flux.fromArray(toolCallbackProvider.getToolCallbacks()).map(tool -> {
+            Map<String, String> map = new HashMap<>();
+            map.put("name", tool.getToolDefinition().name()); //pull out the name
+            map.put("description", tool.getToolDefinition().description()); //pull out the description --> these would be sent to the LLM
+            return map;            
+        });
+    }
 }
